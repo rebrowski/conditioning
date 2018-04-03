@@ -1,0 +1,74 @@
+function [stimuli hitrate fa_rate] = sc_hits_fa(PM, mode)
+
+% takes a data struct from the sc experiment and returns the number of hits
+% and false alarms for each stimulus
+
+
+% as suggested by reviewer 1: do snodgrass & corwin 1988
+if ~exist('mode', 'var')
+    %mode = 'regular';
+    mode = 'snodgrass&corwin1988';
+end
+
+
+stimuli = unique(PM.presented_stim_str);
+
+if isfield(PM, 'chosen_category')
+    chosen_stim = 10*PM.chosen_category + PM.chosen_stimulus;
+    presented_stim = 10*PM.category + PM.stim_nr;
+end
+
+
+for s=1:length(stimuli)
+    hits(s) = 0;
+    fa(s) = 0;
+    target_present(s) = 0; 
+    target_absent(s) = 0;
+    
+    for i = 1:length(PM.presented_stim_str)
+        if  ~isempty(strfind(PM.presented_stim_str{i}, stimuli{s})) && PM.correct(i) == 1
+            hits(s) = hits(s) + 1;
+        end
+        if  ~isempty(strfind(PM.presented_stim_str{i}, stimuli{s}))
+            target_present(s) = target_present(s) + 1;
+        end
+        if isempty(strfind(PM.presented_stim_str{i}, stimuli{s}))
+            target_absent(s) = target_absent(s) + 1;
+        end
+        if ~isempty(strfind(PM.chosen_stim_str{i}, stimuli{s})) && PM.correct(i) == 0
+            fa(s) = fa(s) +1;
+        end
+    
+    end
+
+    % deal with zeroes and ones, which can become problematic
+    % whena calculating d-prime later on
+    
+    if strcmp(mode, 'snodgrass&corwin1988')
+        hitrate(s) = (hits(s)+0.5)/...
+                      (target_present(s)+1);
+        
+        fa_rate(s) = (fa(s)+0.5)/...
+                     (target_absent(s) + 1);
+    
+    else
+        if hits(s) == 1;
+            hits(s) = 0.99;
+        end
+        if hits(s) == 0;
+            hits(s) = 0.01;
+        end
+        if fa(s) == 1;
+            fa(s) = 0.99;
+        end
+        if fa(s) == 0
+            fa(s) = 0.01;
+        end
+                
+        hitrate(s) = hits(s)/target_present(s);
+        fa_rate(s) = fa(s)/target_absent(s);
+        
+    end
+       
+end
+

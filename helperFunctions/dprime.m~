@@ -1,0 +1,22 @@
+function [d] = dprime(pHit,pFA)
+
+if pHit == 1
+    pHit = 0.99;
+end
+if pHit == 0
+    pHit = 0.01;
+end
+if pFA == 0
+    pFA = 0.01;
+end
+if pFA == 1
+    PFA = 0.99;
+end
+
+
+d = norminv(pHit) - norminv(pFA);
+
+
+
+
+

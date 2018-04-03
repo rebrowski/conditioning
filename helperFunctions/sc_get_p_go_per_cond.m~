@@ -1,0 +1,24 @@
+function [data out]=sc_get_p_go_per_cond(data)
+
+
+% probability of a go-response for rewarding and punishing stimuli
+% assuming that data contains data from multiple runs:
+% in sc-pilot out is a 4(threshold-level/run)x2 (condition(r vs p)) matrix
+   
+    
+% overall: 
+    for r = 1:length(data)
+
+        data{r}.prob_go_rewarding = sum(data{r}.condition == 1 & data{r}.go_response ...
+                                                  == 1)/ sum(data{r}.condition==1);
+
+        out(r,1) = data{r}.prob_go_rewarding;
+        
+        
+        data{r}.prob_go_punishing = sum(data{r}.condition == 2 & data{r}.go_response ...
+                                                  == 1)/ sum(data{r}.condition==2);
+        out(r,2) = data{r}.prob_go_punishing;
+        
+    end
+           
+end

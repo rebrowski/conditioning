@@ -1,0 +1,134 @@
+%% plots x and y in scatter plot, draws zero-lines on both axes,
+%% marks slope and intercept and stats thereof
+
+function [intercept slope] = plot_regression_si(x, y, xlimits, ylimits, group, colors, print_stats)
+
+    if ~exist('group')
+        group = ones(1,length(x));
+    end
+    
+    if ~exist('colors')
+        colors = distinguishable_colors(length(unique(group)));
+    end
+    
+    if ~exist('print_stats')
+        print_stats = true;
+    end
+   
+    for i = 1:length(x)
+        plot(x(i), y(i), 'o', 'Color', colors(group(i),:), ...
+             'MarkerFaceColor',  colors(group(i),:), ...
+             'MarkerSize', 4);
+        hold on
+    end
+    
+    % compute regression
+    X = [ones(length(x),1) x']; 
+    [betas,bint,residuals,rint,stats] = regress(y',X);
+    
+    reg_stats = regstats(y,x);
+    
+    rsquare = stats(1);
+    F = stats(2);
+    p = stats(3);
+    
+    
+    intercept = betas(1);
+    slope = betas(2);
+    
+    % set limits
+    if ~exist('xlimits') | isempty(xlimits)
+        xlimits = xlim;
+    end
+    if ~exist('ylimits') | isempty(ylimits)
+        ylimits = ylim;
+    end
+    
+    xlim(xlimits);
+    ylim(ylimits);
+    
+    % draw regression line
+    ax = axis;
+    y_model(1) = slope * ax(1)  + intercept;
+    y_model(2) = slope * ax(2)  + intercept;
+    
+    plot([ax(1) ax(2)], [y_model(1) y_model(2)], '--k');
+    hold on
+    
+    % draw axes at origin
+    plot([ax(1) ax(2)], [0 0], ':k') 
+    plot([0 0], [ax(3) ax(4)], ':k')
+    
+    % draw the intercept
+    % plot([0 0], [0 intercept], '-r', 'LineWidth', 2)
+    % hold on
+    
+    % some locations for annotations
+    mx = 0.2;
+    my = 0.1;
+    
+    pos1 = [ax(1)+(ax(2)-ax(1))*mx ax(3)+(ax(4)-ax(3))*my];
+    
+    mx = 0.4;
+    my = 0.1;
+    
+    pos2 = [ax(1)+(ax(2)-ax(1))*mx ax(3)+(ax(4)-ax(3))*my];
+    
+    mx = 0.8;
+    my = 0.1;
+    
+    pos3 = [ax(1)+(ax(2)-ax(1))*mx ax(3)+(ax(4)-ax(3))*my];
+
+
+    % annotate stuff
+    
+    if print_stats
+        xl = xlim;
+        yl = ylim;
+        xcoord = xl(1) + 7*diff(xl)/10;
+        ycoord = yl(1) + diff(yl)/10;
+        ht=text(xcoord, ycoord, sprintf('y=%.2fx%+.2f, R^2=%.2f', ...
+                     slope, intercept, rsquare));
+        
+        set(ht, 'FontSize', 9);
+% $$$         pformat = '%.3f';
+% $$$         if reg_stats.tstat.pval(2) < 0.001
+% $$$             pformat = '%d';
+% $$$         end
+% $$$         
+% $$$         ht=text (pos2(1), pos2(2), sprintf(['t_s: %2.2f\np_s: ' pformat], ...
+% $$$                                            reg_stats.tstat.t(2),reg_stats.tstat.pval(2)));
+% $$$         set(ht, 'Color', 'k');
+% $$$         
+% $$$         
+% $$$         pformat = '%2.2f';
+% $$$         if reg_stats.tstat.pval(1) < 0.001
+% $$$             pformat = '%1.2d';
+% $$$         end
+% $$$ 
+% $$$         ht=text (pos3(1), pos3(2), sprintf(['t_i: %2.2f\np_i:' pformat], ...
+% $$$                                            reg_stats.tstat.t(1),reg_stats.tstat.pval(1)));
+% $$$         
+% $$$         set(ht, 'Color', 'k');
+        
+        %print stats to console:
+        % fstat
+        disp(sprintf('F(%d,%d) = %.3f, p = %.3f, R^2 = %.2f \n', ...
+                     reg_stats.fstat.dfr, reg_stats.fstat.dfe, ...
+                     reg_stats.fstat.f, reg_stats.fstat.pval, rsquare));
+        
+        % intercept
+        disp(sprintf('intercept = %.2f; t(%d) = %.3f, p = %.3f, \n', intercept, ...
+                     reg_stats.tstat.dfe, reg_stats.tstat.t(1), ...
+                     reg_stats.tstat.pval(1)));
+        % slope
+        disp(sprintf('slope = %.2f; t(%d) = %.3f, p = %.3f, \n', slope, ...
+                     reg_stats.tstat.dfe, reg_stats.tstat.t(2), reg_stats.tstat.pval(2)));
+        
+    end
+    box off
+    
+    
+    
+    
+end
