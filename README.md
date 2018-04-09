@@ -27,14 +27,14 @@ Further instructions for the experimentator, as well as written Instructions for
 ## Analysis of Resulting Data
 To document how data is aggregated, analyzed and displayed in the figures in the article, we provide [juptyer notebooks](http://www.jupyter.org). To run these notebooks yourself, you need the install 
 
-- [Matlab](http://www.mathworks.com) We used 2016a but prior versions may also work. Maybe these things also work with [Octave](https://www.gnu.org/software/octave/) but some changes to code may become necessary. 
+- [Matlab](http://www.mathworks.com) We used 2016a but prior versions may also work. Maybe the code also works with [Octave](https://www.gnu.org/software/octave/) but some changes may become necessary. 
 - [juptyer notebooks](http://www.jupyter.org)
 - [a Matlab kernel for jupyter](https://github.com/calysto/matlab_kernel)
 - [an R kernel for jupyter](https://github.com/IRkernel/IRkernel)
 
 There are a few more dependencies, which are mentioned in the notebook themselves.
 
-The are three jupyter notebook:
+There are three jupyter notebooks:
 
 1. To see how we aggregated the data and store them for further processing in [R](https://www.r-project.org/) and [Matlab](https://www.mathworks.com/), use  [1_MATLAB_LoadAndAggregateData.ipynb ](http://www.github.com/rebrowski/conditioning/blob/master/1_MATLAB_LoadAndAggregateData.ipynb)
 2. Analyses performed using [R](https://www.r-project.org/) are documented in [2_R_Analyses.ipynb ](http://www.github.com/rebrowski/conditioning/blob/master/2_R_Analyses.ipynb)
