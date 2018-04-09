@@ -1,6 +1,6 @@
 # Materials and Data of "Cue Detectability Predicts Instrumental Conditioning" 
 
-This repository accompanies the research article Reber, T.P., Samimiziad, B., & Mormann F. (2018). Cue Detectability Predicts Instrumental Conditioning. Consciousness & Cognition, in press.
+This repository accompanies the research article Reber, T.P., Samimizad, B., & Mormann F. (2018). Cue Detectability Predicts Instrumental Conditioning. Consciousness & Cognition, in press.
 
 If you have any questions, please contact <treber@live.com>.
 
