@@ -11,7 +11,7 @@ This repository provides:
 - jupyter notebooks (`.ipynb` files) and Matlab functions to analyze the data in `helper_functions` directory
 
 ## Running the Experimental Paradigm
-Requirements to run the paradigm are a computer installed with
+Software requirements to run the paradigm are
 
 - linux, we used [Debian 7.2](http://www.debian.org) (Windows and MacOs should also work but may require changes to code and may not be as accurate with timing). 
 - [Octave](https://www.gnu.org/software/octave/) (Matlab might also work, but again might require small changes to the code)
