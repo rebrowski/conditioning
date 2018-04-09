@@ -25,7 +25,7 @@ Further instructions for the experimentator, as well as written Instructions for
 
 
 ## Analysis of Resulting Data
-To document how data is aggregated, analyzed and displayed in the figures in the article, we provide [juptyer notebooks](http://wwww.jupyter.org). To run these notebooks yourself, you need the install 
+To document how data is aggregated, analyzed and displayed in the figures in the article, we provide [juptyer notebooks](http://www.jupyter.org). To run these notebooks yourself, you need the install 
 
 - [Matlab](http://www.mathworks.com) We used 2016a but prior versions may also work. Maybe these things also work with [Octave](https://www.gnu.org/software/octave/) but some changes to code may become necessary. 
 - [juptyer notebooks](http://www.jupyter.org)
