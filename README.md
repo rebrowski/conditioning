@@ -2,6 +2,9 @@
 
 This repository accompanies the research article Reber, T.P., Samimizad, B., & Mormann F. (2018). Cue Detectability Predicts Instrumental Conditioning. Consciousness & Cognition, in press.
 
+The DOI of this repository is the following: 
+[![DOI](https://zenodo.org/badge/114110770.svg)](https://zenodo.org/badge/latestdoi/114110770)
+
 If you have any questions, please contact <treber@live.com>.
 
 This repository provides:
